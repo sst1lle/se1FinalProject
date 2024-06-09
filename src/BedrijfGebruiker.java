@@ -1,6 +1,8 @@
 import Categorieen.*;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Scanner;
 
 public class BedrijfGebruiker extends Gebruiker {
     private KleinBedrijfKosten bedrijfKosten;
@@ -40,7 +42,8 @@ public class BedrijfGebruiker extends Gebruiker {
         System.out.println("1. Categoriseer kosten");
         System.out.println("2. Bereken winst");
         System.out.println("3. Bereken je BTW");
-        System.out.println("4. Afsluiten");
+        System.out.println("4. Wijzig een specifieke kost");
+        System.out.println("5. Afsluiten");
     }
 
     @Override
@@ -64,10 +67,15 @@ public class BedrijfGebruiker extends Gebruiker {
             case 3:
                 //BerekenBTW
                 System.out.println();
-                bedrijfKosten.berekenBTW(omzet);
+                ArrayList<Double> kosten = bedrijfKosten.getKosten();
+                bedrijfKosten.berekenBTW(kosten);
                 System.out.println("--------------------------------------------------------------");
                 break;
             case 4:
+                //wijzig een kost
+                wijzigSpecifiekeKost();
+                break;
+            case 5:
                 // Afsluiten
                 System.out.println("Programma afgesloten.");
                 System.exit(0);
@@ -76,5 +84,16 @@ public class BedrijfGebruiker extends Gebruiker {
                 System.out.println("Ongeldige keuze. Probeer opnieuw.");
                 break;
         }
+    }
+    private void wijzigSpecifiekeKost() {
+        Scanner scanner = new Scanner(System.in);
+        Map<String, Double> kostenMap = bedrijfKosten.getKostenMap();
+        KostenWijzigen.printKosten(kostenMap);
+        System.out.print("Voer de naam van de kost in die u wilt wijzigen,\nLET OP: hoofdlettergevoelig\nVul hier in:   ");
+        String naam = scanner.nextLine();
+        System.out.print("Voer het nieuwe bedrag in: ");
+        double nieuwBedrag = scanner.nextDouble();
+        KostenWijzigen.wijzigKost(kostenMap, naam, nieuwBedrag);
+        bedrijfKosten.updateKosten(naam, nieuwBedrag); // Zorg ervoor dat de wijzigingen worden doorgevoerd
     }
 }

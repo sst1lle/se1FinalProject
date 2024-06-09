@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
 public class KostenCategorie {
     private final List<CategorieKosten> categorieen;
 
-    public KostenCategorie(){
+    public KostenCategorie() {
         categorieen = new ArrayList<>();
     }
 
@@ -15,10 +16,9 @@ public class KostenCategorie {
         Collections.addAll(categorieen, nieuweCategorieen);
     }
 
-    public void toonCategorieKosten(CategorieKosten...categorieen){
-        for (CategorieKosten kost : categorieen){
+    public void toonCategorieKosten(CategorieKosten... categorieen) {
+        for (CategorieKosten kost : categorieen) {
             System.out.println(kost);
         }
     }
-
 }

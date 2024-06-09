@@ -1,6 +1,11 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BewustKosten extends Kosten {
+
+    private Map<String, Double> kostenMap;
+
     private ArrayList<Double> bewustKostenArray;
     private double investeringen;
     private double spaarVoorNoodsituaties;
@@ -20,14 +25,46 @@ public class BewustKosten extends Kosten {
         this.schulden = schulden;
         this.budgetEntertainment = budgetEntertainment;
         this.budgetPersoonlijkeOntwikkeling = budgetPersoonlijkeOntwikkeling;
+        kostenMap = new HashMap<>();
+        kostenMap.put("Inkomen", inkomen);
+        kostenMap.put("Belastingkosten", belastingkosten);
+        kostenMap.put("Huurkosten", huurkosten);
+        kostenMap.put("Energie en gas en water kosten", energieEnGasEnWaterKosten);
+        kostenMap.put("Reiskosten", reiskosten);
+        kostenMap.put("Marketingkosten", marketingkosten);
+        kostenMap.put("Boodschappengeld", boodschappengeld);
+        kostenMap.put("Kledinggeld", shopgeld);
+        kostenMap.put("Abonnementen", abbonementen);
+        kostenMap.put("Persoonlijke verzorging", persoonlijkeVerzorging);
+        kostenMap.put("Spaargeld", spaargeld);
+        kostenMap.put("Verzekeringen", verzekeringen);
+        kostenMap.put("Investeringen", investeringen);
+        kostenMap.put("Spaar voor noodgevallen", spaarVoorNoodsituaties);
+        kostenMap.put("Schulden", schulden);
+        kostenMap.put("Budget voor entertainment", budgetEntertainment);
+        kostenMap.put("Budget voor persoonlijke ontwikkeling", budgetPersoonlijkeOntwikkeling);
 
         voegBewustKostenToe(investeringen,spaarVoorNoodsituaties,schulden,budgetEntertainment,budgetPersoonlijkeOntwikkeling);
+    }
+
+    public Map<String, Double> getKostenMap() {
+        return kostenMap;
+    }
+    @Override
+    public ArrayList<Double> getKosten() {
+        return new ArrayList<>(kostenMap.values());
     }
 
     // Methode om kosten toe te voegen aan de arraylist
     public void voegBewustKostenToe(double... bewustKostenArray) {
         voegKostenToe(bewustKostenArray);
 
+    }
+
+    public void updateKosten(String naam, double waarde) {
+        if (kostenMap.containsKey(naam)) {
+            kostenMap.put(naam, waarde);
+        }
     }
 
 

@@ -1,5 +1,9 @@
 import Categorieen.*;
 
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Scanner;
+
 public class ZZPGebruiker extends Gebruiker {
     private ZZPKosten zzpKosten;
     private double inkomen;
@@ -39,7 +43,8 @@ public class ZZPGebruiker extends Gebruiker {
     public void toonMenu() {
         System.out.println("1. Bereken BTW");
         System.out.println("2. Categoriseer kosten");
-        System.out.println("3. Afsluiten");
+        System.out.println("3. Wijzig een specifieke kost");
+        System.out.println("4. Afsluiten");
     }
 
     @Override
@@ -48,7 +53,8 @@ public class ZZPGebruiker extends Gebruiker {
             case 1:
                 // Bereken BTW
                 System.out.println();
-                zzpKosten.berekenBTW(inkomen);
+                ArrayList<Double> kosten = zzpKosten.getKosten();
+                zzpKosten.berekenBTW(kosten);
                 System.out.println("--------------------------------------------------------------");
                 break;
             case 2:
@@ -60,6 +66,10 @@ public class ZZPGebruiker extends Gebruiker {
                 System.out.println("-------------------------------------------------------------");
                 break;
             case 3:
+                // Wijzig een specifieke kost
+                wijzigSpecifiekeKost();
+                break;
+            case 4:
                 // Afsluiten
                 System.out.println("Programma afgesloten.");
                 System.exit(0);
@@ -68,5 +78,16 @@ public class ZZPGebruiker extends Gebruiker {
                 System.out.println("Ongeldige keuze. Probeer opnieuw.");
                 break;
         }
+    }
+    private void wijzigSpecifiekeKost() {
+        Scanner scanner = new Scanner(System.in);
+        Map<String, Double> kostenMap = zzpKosten.getKostenMap();
+        KostenWijzigen.printKosten(kostenMap);
+        System.out.print("Voer de naam van de kost in die u wilt wijzigen,\nLET OP: hoofdlettergevoelig\nVul hier in:   ");
+        String naam = scanner.nextLine();
+        System.out.print("Voer het nieuwe bedrag in: ");
+        double nieuwBedrag = scanner.nextDouble();
+        KostenWijzigen.wijzigKost(kostenMap, naam, nieuwBedrag);
+        zzpKosten.updateKosten(naam, nieuwBedrag); // Zorg ervoor dat de wijzigingen worden doorgevoerd
     }
 }

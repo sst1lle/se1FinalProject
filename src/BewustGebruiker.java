@@ -1,6 +1,8 @@
 import Categorieen.*;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Scanner;
 
 public class BewustGebruiker extends Gebruiker {
     private BewustKosten bewustKosten;
@@ -45,8 +47,9 @@ public class BewustGebruiker extends Gebruiker {
     @Override
     public void toonMenu() {
         System.out.println("1. Categoriseer kosten");
-        System.out.println("2. Kan de gebruiker zijn schulden betalen");
-        System.out.println("3. Afsluiten");
+        System.out.println("2. Kan ik mijn schulden betalen?");
+        System.out.println("3. Wijzig een specifieke kost");
+        System.out.println("4. Afsluiten");
     }
 
     @Override
@@ -68,6 +71,10 @@ public class BewustGebruiker extends Gebruiker {
                 System.out.println("\n--------------------------------------------------------------");
                 break;
             case 3:
+                // Wijzig een specifieke kost
+                wijzigSpecifiekeKost();
+                break;
+            case 4:
                 // Afsluiten
                 System.out.println("Programma afgesloten.");
                 System.exit(0);
@@ -76,5 +83,17 @@ public class BewustGebruiker extends Gebruiker {
                 System.out.println("Ongeldige keuze. Probeer opnieuw.");
                 break;
         }
+    }
+
+    private void wijzigSpecifiekeKost() {
+        Scanner scanner = new Scanner(System.in);
+        Map<String, Double> kostenMap = bewustKosten.getKostenMap();
+        KostenWijzigen.printKosten(kostenMap);
+        System.out.print("Voer de naam van de kost in die u wilt wijzigen,\nLET OP: hoofdlettergevoelig\nVul hier in:   ");
+        String naam = scanner.nextLine();
+        System.out.print("Voer het nieuwe bedrag in: ");
+        double nieuwBedrag = scanner.nextDouble();
+        KostenWijzigen.wijzigKost(kostenMap, naam, nieuwBedrag);
+        bewustKosten.updateKosten(naam, nieuwBedrag); // Zorg ervoor dat de wijzigingen worden doorgevoerd
     }
 }

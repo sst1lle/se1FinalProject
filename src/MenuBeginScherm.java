@@ -5,7 +5,6 @@ public class MenuBeginScherm {
 
 
     public void start() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Welkom bij de Kostenbeheer Applicatie!\n");
         System.out.println("Wat voor gebruiker ben je in dit programma?");
         System.out.println("1. Ik ben ZZP'er en wil graag een overzicht van mijn kosten en BTW.");
@@ -34,7 +33,7 @@ public class MenuBeginScherm {
         boolean doorgaan = true;
         while (doorgaan) {
             gebruiker.toonMenu();
-            int keuze = leesScanner.readIntInput(1, 4);
+            int keuze = leesScanner.readIntInput(1, 5);
             gebruiker.verwerkOptie(keuze);
         }
     }

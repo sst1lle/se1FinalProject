@@ -1,4 +1,6 @@
+import java.util.ArrayList;
+
 public interface BerekenBTW {
-    void berekenBTW(double bedrag);
+    void berekenBTW(ArrayList<Double> kosten);
 
 }
