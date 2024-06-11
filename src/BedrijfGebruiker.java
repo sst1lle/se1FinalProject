@@ -14,20 +14,21 @@ public class BedrijfGebruiker extends Gebruiker {
 
     @Override
     public void invullenKosten() {
+        LeesScanner sc = new LeesScanner();
         System.out.println("U hebt gekozen voor de optie voor Klein bedrijf, u zal nu uw kosten moeten invullen gerelateerd aan kosten voor een klein bedrijf, als u denkt dat een bepaalde kostenpost irrelevant is voor u, vul dan 0 in.");
 
-         omzet = readPositiveDoubleInput("Omzet: ");
-        double huurkosten = readPositiveDoubleInput("Kosten voor huur of lening van bedrijfspand: ");
-        double nutsvoorzieningenKosten = readPositiveDoubleInput("Kosten voor nutsvoorzieningen (gas, water, elektriciteit): ");
-        double grondstoffenOfProductenKosten = readPositiveDoubleInput("Kosten voor grondstoffen of producten: ");
-        double reiskosten = readPositiveDoubleInput("Reiskosten voor zakelijke doeleinden: ");
-        double abbonementen = readPositiveDoubleInput("Kosten voor abonnementen: ");
-        double marketingkosten = readPositiveDoubleInput("Kosten voor marketing en reclame: ");
-        double spaargeld = readPositiveDoubleInput("Spaargeld of reservefonds voor het bedrijf: ");
-        double personeelsKosten = readPositiveDoubleInput("Kosten voor personeel: ");
-        double administratieKosten = readPositiveDoubleInput("Kosten voor administratie: ");
-        double verzekeringen = readPositiveDoubleInput("Kosten voor verzekeringen: ");
-        double belastingKosten = readPositiveDoubleInput("Kosten voor belastingen: ");
+         omzet = sc.readPositiveDoubleInput("Omzet: ");
+        double huurkosten = sc.readPositiveDoubleInput("Kosten voor huur of lening van bedrijfspand: ");
+        double nutsvoorzieningenKosten = sc.readPositiveDoubleInput("Kosten voor nutsvoorzieningen (gas, water, elektriciteit): ");
+        double grondstoffenOfProductenKosten = sc.readPositiveDoubleInput("Kosten voor grondstoffen of producten: ");
+        double reiskosten = sc.readPositiveDoubleInput("Reiskosten voor zakelijke doeleinden: ");
+        double abbonementen = sc.readPositiveDoubleInput("Kosten voor abonnementen: ");
+        double marketingkosten = sc.readPositiveDoubleInput("Kosten voor marketing en reclame: ");
+        double spaargeld = sc.readPositiveDoubleInput("Spaargeld of reservefonds voor het bedrijf: ");
+        double personeelsKosten = sc.readPositiveDoubleInput("Kosten voor personeel: ");
+        double administratieKosten = sc.readPositiveDoubleInput("Kosten voor administratie: ");
+        double verzekeringen = sc.readPositiveDoubleInput("Kosten voor verzekeringen: ");
+        double belastingKosten = sc.readPositiveDoubleInput("Kosten voor belastingen: ");
         System.out.println();
 
         bedrijfKosten = new KleinBedrijfKosten(0,belastingKosten,huurkosten,nutsvoorzieningenKosten,reiskosten,marketingkosten,0,0,abbonementen,0,spaargeld,verzekeringen,omzet,grondstoffenOfProductenKosten,personeelsKosten,administratieKosten);

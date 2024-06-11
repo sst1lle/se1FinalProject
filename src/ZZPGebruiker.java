@@ -14,21 +14,22 @@ public class ZZPGebruiker extends Gebruiker {
     CategorieVrijeTIjd vrijeTIjd;
     @Override
     public void invullenKosten() {
+        LeesScanner sc = new LeesScanner();
         System.out.println("U hebt gekozen voor de optie voor ZZP'ers, u zal nu uw kosten/inkomen moeten invullen gerelateerd aan ZZP kosten, als u denkt dat een bepaalde kostenpost irrelevant is voor u, vul dan 0 in.");
 
-         inkomen += readPositiveDoubleInput("Inkomen: ");
-        double belastingkosten = readPositiveDoubleInput("Belastingkosten: ");
-        double huurkosten = readPositiveDoubleInput("Huurkosten: ");
-        double energieEnGasEnWaterKosten = readPositiveDoubleInput("Gas Water en Licht: ");
-        double boodschappengeld = readPositiveDoubleInput("Boodschappengeld: ");
-        double shopgeld = readPositiveDoubleInput("Shopgeld: ");
-        double marketingkosten = readPositiveDoubleInput("Marketingkosten: ");
-        double reiskosten = readPositiveDoubleInput("Reiskosten: ");
-        double abbonementen = readPositiveDoubleInput("Abbonementen: ");
-        double verzekeringen = readPositiveDoubleInput("Verzekeringen: ");
-        double persoonlijkeVerzorging = readPositiveDoubleInput("Persoonlijke verzorging: ");
-        double spaargeld = readPositiveDoubleInput("Spaargeld: ");
-        double administratieKosten = readPositiveDoubleInput("Administratiekosten: ");
+         inkomen += sc.readPositiveDoubleInput("Inkomen: ");
+        double belastingkosten = sc.readPositiveDoubleInput("Belastingkosten: ");
+        double huurkosten = sc.readPositiveDoubleInput("Huurkosten: ");
+        double energieEnGasEnWaterKosten = sc.readPositiveDoubleInput("Gas Water en Licht: ");
+        double boodschappengeld = sc.readPositiveDoubleInput("Boodschappengeld: ");
+        double shopgeld = sc.readPositiveDoubleInput("Shopgeld: ");
+        double marketingkosten = sc.readPositiveDoubleInput("Marketingkosten: ");
+        double reiskosten = sc.readPositiveDoubleInput("Reiskosten: ");
+        double abbonementen = sc.readPositiveDoubleInput("Abbonementen: ");
+        double verzekeringen = sc.readPositiveDoubleInput("Verzekeringen: ");
+        double persoonlijkeVerzorging = sc.readPositiveDoubleInput("Persoonlijke verzorging: ");
+        double spaargeld = sc.readPositiveDoubleInput("Spaargeld: ");
+        double administratieKosten = sc.readPositiveDoubleInput("Administratiekosten: ");
         System.out.println();
 
         zzpKosten = new ZZPKosten(inkomen,belastingkosten,huurkosten,energieEnGasEnWaterKosten,reiskosten,marketingkosten,boodschappengeld,shopgeld,abbonementen,persoonlijkeVerzorging,spaargeld,verzekeringen,administratieKosten);
