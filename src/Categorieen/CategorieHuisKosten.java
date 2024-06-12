@@ -24,7 +24,6 @@ public class CategorieHuisKosten implements CategorieKosten{
         StringBuilder sb = new StringBuilder("Huiselijke Kosten of kosten voor uw pand: ");
         double totaal = 0;
         for (double kost : huisKostenArray) {
-            sb.append(String.format("€%.2f ", kost));
             totaal += kost;
         }
         sb.append(String.format("\nTotale huiselijke kosten: €%.2f\n", totaal));

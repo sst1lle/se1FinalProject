@@ -8,7 +8,8 @@ public class BerekenSchuld {
 
     //methode om te checken of de gebruiker na het aftrekken van alle normale kosten, zijn of haar schulden nog kan betalen.
     public void betaalSchulden(ArrayList<Double> kosten){
-        inkomen += kosten.get(12);
+
+        inkomen += kosten.get(10);
 
         System.out.println("Deze optie laat zien of je je schulden nog kan betalen nadat je al je maandelijkse kosten hebt betaald, budgetten en spaargeld worden niet meegerekend in deze berekening.");
         totaleKosten += (kosten.get(0));
@@ -24,10 +25,10 @@ public class BerekenSchuld {
         totaleKosten += (kosten.get(15));
         totaleKosten += (kosten.get(16));
         rest += inkomen - totaleKosten;
-        double schulden= kosten.get(10);
+
         System.out.println("Kunt u uw schulden betalen?");
-        if (rest >= schulden){
-            rest -= schulden;
+        if (rest >= 0){
+
 
             System.out.printf("\nU kunt uw schulden wel betalen. Het bedrag wat u overhoudt na het betalen van uw schulden: €%.0f",rest);
         }

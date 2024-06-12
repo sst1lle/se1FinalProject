@@ -27,7 +27,7 @@ public class BewustGebruiker extends Gebruiker {
         double reiskosten = sc.readPositiveDoubleInput("Reiskosten: ");
         double abbonementen = sc.readPositiveDoubleInput("Abbonementen: ");
         double persoonlijkeVerzorging = sc.readPositiveDoubleInput("Persoonlijke verzorging: ");
-        double shopgeld = sc.readPositiveDoubleInput("Shopgeld: ");
+        double shopgeld = sc.readPositiveDoubleInput("Kledinggeld: ");
         double spaarVoorNoodsituaties = sc.readPositiveDoubleInput("Spaargeld voor noodsituaties: ");
         double schulden = sc.readPositiveDoubleInput("Schulden: ");
         double spaargeld = sc.readPositiveDoubleInput("Spaargeld: ");
@@ -41,6 +41,7 @@ public class BewustGebruiker extends Gebruiker {
         huisKosten = new CategorieHuisKosten(huurkosten,energieEnGasEnWaterKosten,boodschappengeld,persoonlijkeVerzorging);
         overig = new CategorieOverig(belastingkosten,verzekeringen,spaarVoorNoodsituaties);
         vrijeTIjd = new CategorieVrijeTIjd(budgetEntertainment,budgetPersoonlijkeOntwikkeling,shopgeld);
+        bewustKosten.addObserver(new KostenObserver());
     }
 
 
@@ -50,7 +51,8 @@ public class BewustGebruiker extends Gebruiker {
         System.out.println("1. Categoriseer kosten");
         System.out.println("2. Kan ik mijn schulden betalen?");
         System.out.println("3. Wijzig een specifieke kost");
-        System.out.println("4. Afsluiten");
+        System.out.println("4. Update je kostenlijst");
+        System.out.println("5. Afsluiten");
     }
 
     @Override
@@ -76,6 +78,10 @@ public class BewustGebruiker extends Gebruiker {
                 wijzigSpecifiekeKost();
                 break;
             case 4:
+                // Update kostenlijst
+                bewustKosten.notifyObservers();
+                break;
+            case 5:
                 // Afsluiten
                 System.out.println("Programma afgesloten.");
                 System.exit(0);
@@ -89,7 +95,6 @@ public class BewustGebruiker extends Gebruiker {
     private void wijzigSpecifiekeKost() {
         Scanner scanner = new Scanner(System.in);
         Map<String, Double> kostenMap = bewustKosten.getKostenMap();
-        KostenWijzigen.printKosten(kostenMap);
         System.out.print("Voer de naam van de kost in die u wilt wijzigen,\nLET OP: hoofdlettergevoelig\nVul hier in:   ");
         String naam = scanner.nextLine();
         System.out.print("Voer het nieuwe bedrag in: ");

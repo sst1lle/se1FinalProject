@@ -21,7 +21,6 @@ public class CategorieVrijeTIjd implements CategorieKosten{
         StringBuilder sb = new StringBuilder("Vrije tijd: ");
         double totaal = 0;
         for (double kost : vrijeTijdArray) {
-            sb.append(String.format("€%.2f ", kost));
             totaal += kost;
         }
         sb.append(String.format("\nTotale vermogen voor uw vrije tijd: €%.2f\n", totaal));

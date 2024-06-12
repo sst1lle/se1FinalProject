@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 class KleinBedrijfKosten extends Kosten implements BerekenBTW{
     private ArrayList<Double> kbkostenArray;
@@ -9,6 +7,7 @@ class KleinBedrijfKosten extends Kosten implements BerekenBTW{
     private double grondstoffenOfProductenKosten;
     private double personeelsKosten;
     private double administratieKosten;
+    private List<Observer> observers;
 
 
 
@@ -22,26 +21,28 @@ class KleinBedrijfKosten extends Kosten implements BerekenBTW{
         this.personeelsKosten = personeelsKosten;
         this.administratieKosten =administratieKosten;
         this.kbkostenArray = new ArrayList<>();
+        this.observers = new ArrayList<>();
         kostenMap = new HashMap<>();
         kostenMap.put("Inkomen", inkomen);
-        kostenMap.put("Belastingkosten", belastingkosten);
-        kostenMap.put("Huurkosten", huurkosten);
-        kostenMap.put("Energie en gas en water kosten", energieEnGasEnWaterKosten);
-        kostenMap.put("Reiskosten", reiskosten);
-        kostenMap.put("Marketingkosten", marketingkosten);
+        kostenMap.put("Kosten voor belastingen", belastingkosten);
+        kostenMap.put("Kosten voor huur of lening van bedrijfspand", huurkosten);
+        kostenMap.put("Kosten voor nutsvoorzieningen (gas, water, elektriciteit)", energieEnGasEnWaterKosten);
+        kostenMap.put("Reiskosten voor zakelijke doeleinden", reiskosten);
+        kostenMap.put("Kosten voor marketing en reclame", marketingkosten);
         kostenMap.put("Boodschappengeld", boodschappengeld);
         kostenMap.put("Kledinggeld", shopgeld);
-        kostenMap.put("Abonnementen", abbonementen);
+        kostenMap.put("Kosten voor abonnementen", abbonementen);
         kostenMap.put("Persoonlijke verzorging", persoonlijkeVerzorging);
-        kostenMap.put("Spaargeld", spaargeld);
-        kostenMap.put("Verzekeringen", verzekeringen);
+        kostenMap.put("Spaargeld of reservefonds voor het bedrijf", spaargeld);
+        kostenMap.put("Kosten voor verzekeringen", verzekeringen);
         kostenMap.put("Omzet", omzet);
-        kostenMap.put("Grondstoffen of Proudctiekosten",grondstoffenOfProductenKosten);
-        kostenMap.put("Personeelskosten",personeelsKosten);
-        kostenMap.put("Administratiekosten",administratieKosten);
+        kostenMap.put("Kosten voor grondstoffen of producten",grondstoffenOfProductenKosten);
+        kostenMap.put("Kosten voor personeel",personeelsKosten);
+        kostenMap.put("Kosten voor administratie",administratieKosten);
 
         voegKBKostenToe(omzet,grondstoffenOfProductenKosten,personeelsKosten,administratieKosten);
     }
+    @Override
     public Map<String, Double> getKostenMap() {
         return kostenMap;
     }
@@ -57,7 +58,7 @@ class KleinBedrijfKosten extends Kosten implements BerekenBTW{
     @Override
     public void berekenBTW(ArrayList<Double> kbkostenArray) {
 
-        double kost = kbkostenArray.get(3);
+        double kost = kbkostenArray.get(4);
         kost = (kost * 0.21);
         String afgerond = String.format("%.0f",kost);
         System.out.println("Let op: dit is een schatting van je maandelijkse omzetbelasting die je elk kwartaal moet betalen. Dus het bedrag zal ongeveer 1/3 zijn van wat u elk kwartaal moet betalen.");
@@ -66,6 +67,23 @@ class KleinBedrijfKosten extends Kosten implements BerekenBTW{
     public void updateKosten(String naam, double waarde) {
         if (kostenMap.containsKey(naam)) {
             kostenMap.put(naam, waarde);
+        }
+    }
+    // Observer methods
+
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update(kostenMap);
         }
     }
 

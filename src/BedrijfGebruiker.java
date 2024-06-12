@@ -36,6 +36,8 @@ public class BedrijfGebruiker extends Gebruiker {
         huisKosten = new CategorieHuisKosten(huurkosten,nutsvoorzieningenKosten,0,0);
         overig = new CategorieOverig(belastingKosten,verzekeringen,0);
         cBedrijfKosten = new CategorieBedrijfKosten(marketingkosten,reiskosten,grondstoffenOfProductenKosten,personeelsKosten,administratieKosten);
+        bedrijfKosten.addObserver(new KostenObserver());
+
     }
 
     @Override
@@ -44,7 +46,8 @@ public class BedrijfGebruiker extends Gebruiker {
         System.out.println("2. Bereken winst");
         System.out.println("3. Bereken je BTW");
         System.out.println("4. Wijzig een specifieke kost");
-        System.out.println("5. Afsluiten");
+        System.out.println("5. Update je kostenlijst");
+        System.out.println("6. Afsluiten");
     }
 
     @Override
@@ -77,6 +80,10 @@ public class BedrijfGebruiker extends Gebruiker {
                 wijzigSpecifiekeKost();
                 break;
             case 5:
+                // Update kostenlijst
+                bedrijfKosten.notifyObservers();
+                break;
+            case 6:
                 // Afsluiten
                 System.out.println("Programma afgesloten.");
                 System.exit(0);
@@ -89,7 +96,6 @@ public class BedrijfGebruiker extends Gebruiker {
     private void wijzigSpecifiekeKost() {
         Scanner scanner = new Scanner(System.in);
         Map<String, Double> kostenMap = bedrijfKosten.getKostenMap();
-        KostenWijzigen.printKosten(kostenMap);
         System.out.print("Voer de naam van de kost in die u wilt wijzigen,\nLET OP: hoofdlettergevoelig\nVul hier in:   ");
         String naam = scanner.nextLine();
         System.out.print("Voer het nieuwe bedrag in: ");

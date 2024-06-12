@@ -26,7 +26,6 @@ public class CategorieBedrijfKosten implements CategorieKosten{
         StringBuilder sb = new StringBuilder("Bedrijfskosten: ");
         double totaal = 0;
         for (double kost : BedrijfsKostenArray) {
-            sb.append(String.format("€%.2f ", kost));
             totaal += kost;
         }
         sb.append(String.format("\nTotale Bedrijfskosten: €%.2f\n", totaal));

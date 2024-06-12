@@ -33,7 +33,7 @@ public class MenuBeginScherm {
         boolean doorgaan = true;
         while (doorgaan) {
             gebruiker.toonMenu();
-            int keuze = leesScanner.readIntInput(1, 5);
+            int keuze = leesScanner.readIntInput(1, 6);
             gebruiker.verwerkOptie(keuze);
         }
     }

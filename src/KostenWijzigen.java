@@ -11,10 +11,4 @@ public class KostenWijzigen {
         }
     }
 
-    public static void printKosten(Map<String, Double> kostenMap) {
-        for (Map.Entry<String, Double> entry : kostenMap.entrySet()) {
-            System.out.println(entry.getKey() + ": €" + String.format("%.2f", entry.getValue()));
-        }
-        System.out.println();
-    }
 }

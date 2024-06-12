@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BewustKosten extends Kosten {
@@ -12,6 +13,7 @@ public class BewustKosten extends Kosten {
     private double schulden;
     private double budgetEntertainment;
     private double budgetPersoonlijkeOntwikkeling;
+    private List<Observer> observers;
     // Constructor voor kosten van een financieel bewust persoon
 
     //Long parameter list, ik weet hiervan, maar de enige oplossing die ik denk ik kan vinden hiervoor is door gebruik te maken van een builder pattern, wat eigenlijk niet helemaal het probleem oplost, omdat ik dan alsnog een lange parameter zal krijgen met het woord .builder() ertusssen.
@@ -25,11 +27,12 @@ public class BewustKosten extends Kosten {
         this.schulden = schulden;
         this.budgetEntertainment = budgetEntertainment;
         this.budgetPersoonlijkeOntwikkeling = budgetPersoonlijkeOntwikkeling;
+        this.observers = new ArrayList<>();
         kostenMap = new HashMap<>();
         kostenMap.put("Inkomen", inkomen);
         kostenMap.put("Belastingkosten", belastingkosten);
         kostenMap.put("Huurkosten", huurkosten);
-        kostenMap.put("Energie en gas en water kosten", energieEnGasEnWaterKosten);
+        kostenMap.put("Kosten Gas+Licht+Water", energieEnGasEnWaterKosten);
         kostenMap.put("Reiskosten", reiskosten);
         kostenMap.put("Marketingkosten", marketingkosten);
         kostenMap.put("Boodschappengeld", boodschappengeld);
@@ -39,10 +42,10 @@ public class BewustKosten extends Kosten {
         kostenMap.put("Spaargeld", spaargeld);
         kostenMap.put("Verzekeringen", verzekeringen);
         kostenMap.put("Investeringen", investeringen);
-        kostenMap.put("Spaar voor noodgevallen", spaarVoorNoodsituaties);
+        kostenMap.put("Spaargeld voor noodsituaties", spaarVoorNoodsituaties);
         kostenMap.put("Schulden", schulden);
-        kostenMap.put("Budget voor entertainment", budgetEntertainment);
-        kostenMap.put("Budget voor persoonlijke ontwikkeling", budgetPersoonlijkeOntwikkeling);
+        kostenMap.put("Geld voor entertainment", budgetEntertainment);
+        kostenMap.put("Geld voor persoonlijke ontwikkeling", budgetPersoonlijkeOntwikkeling);
 
         voegBewustKostenToe(investeringen,spaarVoorNoodsituaties,schulden,budgetEntertainment,budgetPersoonlijkeOntwikkeling);
     }
@@ -64,6 +67,23 @@ public class BewustKosten extends Kosten {
     public void updateKosten(String naam, double waarde) {
         if (kostenMap.containsKey(naam)) {
             kostenMap.put(naam, waarde);
+        }
+    }
+    // Observer methods
+
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update(kostenMap);
         }
     }
 

@@ -20,7 +20,6 @@ public class CategorieOverig implements CategorieKosten{
         StringBuilder sb = new StringBuilder("Overige Kosten: ");
         double totaal = 0;
         for (double kost : overigArray) {
-            sb.append(String.format("€%.2f ", kost));
             totaal += kost;
         }
         sb.append(String.format("\nTotale overige kosten: €%.2f\n", totaal));

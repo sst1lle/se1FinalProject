@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 class ZZPKosten extends Kosten implements BerekenBTW{
@@ -7,6 +8,7 @@ class ZZPKosten extends Kosten implements BerekenBTW{
     private Map<String, Double> kostenMap;
 
     private ArrayList<Double> zzpkostenArray;
+    private List<Observer> observers;
 
 
 
@@ -18,11 +20,12 @@ class ZZPKosten extends Kosten implements BerekenBTW{
         super(inkomen, belastingkosten, huurkosten, energieEnGasEnWaterKosten, reiskosten, marketingkosten, boodschappengeld, shopgeld, abbonementen, persoonlijkeVerzorging, spaargeld, verzekeringen);
         this.administratieKosten = administratieKosten;
         this.zzpkostenArray = new ArrayList<>();
+        this.observers = new ArrayList<>();
         kostenMap = new HashMap<>();
         kostenMap.put("Inkomen", inkomen);
         kostenMap.put("Belastingkosten", belastingkosten);
         kostenMap.put("Huurkosten", huurkosten);
-        kostenMap.put("Energie en gas en water kosten", energieEnGasEnWaterKosten);
+        kostenMap.put("Gas Water en Licht", energieEnGasEnWaterKosten);
         kostenMap.put("Reiskosten", reiskosten);
         kostenMap.put("Marketingkosten", marketingkosten);
         kostenMap.put("Boodschappengeld", boodschappengeld);
@@ -62,6 +65,19 @@ class ZZPKosten extends Kosten implements BerekenBTW{
     public void updateKosten(String naam, double waarde) {
         if (kostenMap.containsKey(naam)) {
             kostenMap.put(naam, waarde);
+        }
+    }
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update(kostenMap);
         }
     }
 

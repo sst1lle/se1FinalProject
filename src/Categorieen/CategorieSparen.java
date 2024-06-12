@@ -21,7 +21,6 @@ public class CategorieSparen implements CategorieKosten{
         StringBuilder sb = new StringBuilder("Uw gespaard geld: ");
         double totaal = 0;
         for (double kost : sparenArray) {
-            sb.append(String.format("€%.2f ", kost));
             totaal += kost;
         }
         sb.append(String.format("\nTotale spaargeld: €%.2f\n", totaal));
